@@ -1,0 +1,23 @@
+﻿h3 Welcome Admiral!
+div
+    table.table.table-striped.table-bordered.hover(datatable='ng', dt-options='dtOptions', dt-columns='dtColumns', dt-instance='dtInstance')
+      thead
+        tr
+          th ID
+          th Name
+          th Location
+          th Inspired
+          th Taught 
+          th Creative
+          th Meh
+          th Total
+      tbody
+        tr(ng-repeat='person in votes')
+          td {{ person.projectID }}
+          td {{ person.projectName }}
+          td {{ person.location }}
+          td {{ person.vote[0] }}
+          td {{ person.vote[1] }}
+          td {{ person.vote[2] }}
+          td {{ person.vote[3] }}
+          td {{ person.total }}

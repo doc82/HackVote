@@ -1,0 +1,17 @@
+﻿form#survey.form-horizontal(ng-submit="submitForm()")
+  fieldset
+    // Form Name
+    legend Form Name
+    // Multiple Radios
+    div(ng-repeat='question in questions')
+      .control-group
+        label.control-label(for='radios') {{question.description}}
+        .controls(ng-repeat='xx in question.answers track by $index')
+          label.radio
+            input#radios-0(type='radio', ng-model='form.vote', name='radios', value='{{$index}}')
+            |           {{xx}}
+    // Button
+    .control-group
+      label.control-label(for='singlebutton')
+      .controls
+        button#singlebutton.btn.btn-primary(name='singlebutton') Button
