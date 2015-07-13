@@ -14,15 +14,14 @@
     app = express();
 
 // Config DB && Session 
-var connectString = 'mongodb://localhost',
-    sessConfig = {
-    saveUninitialized: false,
-    resave: false,
-    secret: 'i$Am3234D#$@dsaAdl5d2B2d!5sX',
-    duration: 60 * 1000,
-    activeDuration: 10 * 60 * 1000,
-    store: new MongoStore({ mongooseConnection: Mongoose.connection })
-};
+var sessConfig = {
+        saveUninitialized: false,
+        resave: false,
+        secret: 'i$Am3234D#$@dsaAdl5d2B2d!5sX',
+        duration: 60 * 1000,
+        activeDuration: 10 * 60 * 1000,
+        store: new MongoStore({ mongooseConnection: Mongoose.connection })
+    };
 
 if (app.get('env') === 'production') {
     app.set('trust proxy', 1)       // trust first proxy
