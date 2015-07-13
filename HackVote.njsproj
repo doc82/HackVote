@@ -46,6 +46,7 @@
     <Compile Include="routes\index.js" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="public\img\Hackathon_logo.png" />
     <Content Include="public\javascripts\bootstrap.js" />
     <Content Include="public\javascripts\bootstrap.min.js" />
     <Content Include="public\javascripts\jquery-1.10.2.intellisense.js" />
@@ -68,6 +69,7 @@
     <Content Include="public\javascripts\jquery-1.10.2.min.map" />
     <Content Include="public\stylesheets\bootstrap.css" />
     <Content Include="public\stylesheets\bootstrap.min.css" />
+    <Content Include="public\stylesheets\style.css" />
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
     <Content Include="views\droids.jade" />
@@ -95,6 +97,7 @@
     <Folder Include="public\app\" />
     <Folder Include="public\fonts\" />
     <Folder Include="public\images\" />
+    <Folder Include="public\img\" />
     <Folder Include="public\javascripts\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />

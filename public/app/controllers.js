@@ -6,7 +6,7 @@ function SurveyCtrl($scope, $http, $state) {
     
     $scope.questions = [
         {
-            description: "Wow! This project…", answers: ['	Inspired me!', 'Taught me something new!', 'Is creative!', 'Was at the Science Fair']
+            description: "Wow! This project…", answers: ['Inspired me!', 'Taught me something new!', 'Is creative!', 'Was at the Science Fair']
         }
     ]
 

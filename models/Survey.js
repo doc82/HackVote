@@ -42,8 +42,6 @@ UserSchema.statics.tallyVotes = function (cb) {
             var packet = {},
                 le = users.length;
             
-            //todo: need to package packet.votes to have empty entries so it doesnt break front end grid table
-            // ex: packet.votes[voteIndex] = 0 - just need to figure out what the constants are
             while (le) {
                 if (users[le - 1] && users[le - 1].surveys && users[le - 1].surveys.length >= 0) {
                     var len = users[le - 1].surveys.length;

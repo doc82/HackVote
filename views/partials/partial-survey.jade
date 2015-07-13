@@ -1,7 +1,9 @@
-﻿form#survey.form-horizontal(ng-submit="submitForm()")
+﻿form#survey(ng-submit="submitForm()")
   fieldset
+    .header
+     img(src='/img/Hackathon_Logo.png')
     // Form Name
-    legend Form Name
+    h3.projectName
     // Multiple Radios
     div(ng-repeat='question in questions')
       .control-group

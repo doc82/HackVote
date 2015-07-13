@@ -1,6 +1,8 @@
 body {
-  padding-top: 50px;
+  padding-top: 15px;
   padding-bottom: 20px;
+  background-color: #e50e20;
+  color: #FFFFFF;
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -31,4 +33,15 @@ input[type="checkbox"].input-validation-error {
 }
 .validation-summary-valid {
   display: none;
+}
+
+#survey {
+     margin: auto;
+     width: 18%;
+}
+
+
+@media (max-width: 480px) {
+
+
 }
