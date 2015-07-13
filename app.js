@@ -1,4 +1,7 @@
 ﻿var express = require('express'),
+    jwt = require('jwt-decode'),
+    passport = require('passport'),
+    AzureAdOAuth2Strategy = require('passport-azure-ad-oauth2').Strategy,
     routes = require('./routes'),
     http = require('http'),
     path = require('path'),
@@ -7,6 +10,7 @@
     session = require('express-session'),
     MongoStore = require('connect-mongo')(session),
     Mongoose = require('mongoose'),
+    request = require('request'),
     app = express();
 
 // Config DB && Session 
@@ -25,11 +29,43 @@ if (app.get('env') === 'production') {
     sessConfig.cookie.secure = true // serve secure cookies
 }
 
+// Configure Passport for authentication against AzureAD
+// we could store this stuff in db if we wanted/needed to
+passport.serializeUser(function(user,cb){
+    // TODO: save the user to a persistence layer (in-memory, redis cache, etc)
+    // cb([err], [userId])
+    cb(null, user);
+});
+
+passport.deserializeUser(function(userId,cb){
+    // TODO: load a user from the persistence layer
+    // cb([err], [user])
+    cb(null, userId);
+});
+
+passport.use(new AzureAdOAuth2Strategy({
+    clientID: '2ce2a7c8-95c6-4915-b7cc-785854203de7',
+    clientSecret: 'x8kgKfWTMOaq7FPfKn6A2BBbsaVLYvmiPajFmAFHXU0=',
+    callbackURL: 'http://localhost:3000/login/callback',
+    resource: '00000002-0000-0000-c000-000000000000',
+    tenant: 'microsoft.com'
+},
+function (accessToken, refresh_token, params, profile, done) {
+    request.get({uri: "https://graph.windows.net/me?api-version=1.5", headers: {
+        "Authorization": "Bearer "+params.access_token
+    }}, function (err, res, body) {
+        var parsed = JSON.parse(body);
+        done(err, {email: parsed.mail});
+    });
+    
+}));
+
 // Configure Express + Middleware
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(session(sessConfig));
+app.use(passport.initialize());
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
@@ -44,6 +80,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
+
+// Special case to handle auth
+app.get('/login', passport.authenticate('azure_ad_oauth2'));
+app.get('/login/callback', passport.authenticate('azure_ad_oauth2', { failureRedirect: '/login' }),
+function (req, res) {
+    console.log(req.user); // FOR DEBUG: we don't need this, it just shows us what to work with
+    // successful auth, redirect 
+    res.redirect('/');
+});
 
 // Speceial case to handle partials.. (stupid)
 app.get('/partials/:name', function (req , res) {
