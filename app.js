@@ -125,7 +125,7 @@ function isSurveyAuth(req, res, next) {
 ////
 // Routes
 app.get('/login', passport.authenticate('azure_ad_oauth2'));
-app.get('/login/callback', passport.authenticate('azure_ad_oauth2', { failureRedirect: '/login' }),
+app.get('/login/callback', passport.authenticate('azure_ad_oauth2', { failureRedirect: '/droids' }),
 function (req, res) {
     req.session.auth = 'survey';
     res.redirect('/survey');
