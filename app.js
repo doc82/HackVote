@@ -1,5 +1,4 @@
 ﻿var express = require('express'),
-    jwt = require('jwt-decode'),
     passport = require('passport'),
     AzureAdOAuth2Strategy = require('passport-azure-ad-oauth2').Strategy,
     routes = require('./routes'),
@@ -56,8 +55,18 @@ function (accessToken, refresh_token, params, profile, done) {
     request.get({uri: "https://graph.windows.net/me?api-version=1.5", headers: {
         "Authorization": "Bearer "+params.access_token
     }}, function (err, res, body) {
-        var parsed = JSON.parse(body);
-        done(err, {email: parsed.mail});
+        var parsed;
+        try {
+            parsed = JSON.parse(body);
+        } catch (e) {
+            // original err takes presidence, if not set and this throws, we set it
+            err = err || e;
+        }
+        if (typeof(parsed) === "undefined" || !parsed.email) {
+            // original err takes presidence, if not set and this if is true, we set it
+            err = err || new Error("user has no email");
+        }
+        done(err, (err) ? {} : {email: parsed.mail});
     });
     
 }));

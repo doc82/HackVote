@@ -8,13 +8,11 @@
     "email": ""
   },
   "dependencies": {
-    "adal-node": "^0.1.13",
     "connect-mongo": "^0.8.1",
     "express": "3.4.4",
     "express-session": "^1.11.3",
     "express-validator": "^2.12.2",
     "jade": "*",
-    "jwt-decode": "^1.1.1",
     "mongoose": "^4.0.6",
     "parseurl": "^1.3.0",
     "passport": "^0.2.2",

@@ -2,32 +2,10 @@
 ////
 // Yar Booty
 var User = require('../models/Survey'),
-    AuthenticationContext = require('adal-node').AuthenticationContext,
     crypto = require('crypto');
 var admin = {
     name: 'GarageMaster',
     password: 'TheGTeam!'
-}
-
-var clientId = 'yourClientIdHere';
-var clientSecret = 'yourAADIssuedClientSecretHere'
-var redirectUri = 'yourRedirectUriHere';
-var authorityHostUrl = 'https://login.windows.net';
-var tenant = 'myTenant';
-var authorityUrl = authorityHostUrl + '/' + tenant;
-var redirectUri = 'http://localhost:3000/getAToken';
-var resource = '00000002-0000-0000-c000-000000000000';
-var templateAuthzUrl = 'https://login.windows.net/' + tenant + '/oauth2/authorize?response_type=code&client_id=' 
-    + clientId + '&redirect_uri=' + redirectUri + '&state=<state>&resource=' + resource;
-
-////
-// Private
-function createAuthorizationUrl(state) {
-    var authorizationUrl = templateAuthzUrl.replace('<client_id>', clientId);
-    authorizationUrl = authorizationUrl.replace('<redirect_uri>', redirectUri);
-    authorizationUrl = authorizationUrl.replace('<state>', state);
-    authorizationUrl = authorizationUrl.replace('<resource>', resource);
-    return authorizationUrl;
 }
 
 ////
