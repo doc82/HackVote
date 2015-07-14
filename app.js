@@ -21,7 +21,9 @@ var sessConfig = {
         duration: 60 * 1000,
         activeDuration: 10 * 60 * 1000,
         store: new MongoStore({ mongooseConnection: Mongoose.connection }),
-        cookie: {}
+        cookie: {
+            secure: false
+        }
     };
 
 if (app.get('env') === 'production') {
