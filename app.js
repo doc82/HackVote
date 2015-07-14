@@ -45,7 +45,7 @@ passport.deserializeUser(function(userId,cb){
 passport.use(new AzureAdOAuth2Strategy({
     clientID: '2ce2a7c8-95c6-4915-b7cc-785854203de7',
     clientSecret: 'x8kgKfWTMOaq7FPfKn6A2BBbsaVLYvmiPajFmAFHXU0=',
-    callbackURL: 'http://localhost:3000/login/callback',
+    callbackURL: 'http://localhost:1337/login/callback',
     resource: '00000002-0000-0000-c000-000000000000',
     tenant: 'microsoft.com'
 },
@@ -80,22 +80,13 @@ if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
 
-// Special case to handle auth
-app.get('/login', passport.authenticate('azure_ad_oauth2'));
-app.get('/login/callback', passport.authenticate('azure_ad_oauth2', { failureRedirect: '/login' }),
-function (req, res) {
-    console.log(req.user); // FOR DEBUG: we don't need this, it just shows us what to work with
-    // successful auth, redirect 
-    res.redirect('/');
-});
-
 // Speceial case to handle partials.. (stupid)
 app.get('/partials/:name', function (req , res) {
     var name = req.params.name;
     res.render('partials/' + name);
 });
 
-// This should probably be replaced by a passport strategy
+// Handle Admin 
 function isAdminAuth(req, res, next) {
     if (req.session.auth && req.session.auth === 'admin') {
         next();
@@ -107,7 +98,7 @@ function isAdminAuth(req, res, next) {
 // todo: should probably be replaced by a passport strategy
 function isSurveyAuth(req, res, next) {
     // Are we logged in already - go ahead and advance to the survey screen
-    if (req.session.auth && req.session.auth === 'survey' && ((req.session.currentSurvey && req.session.currentSurvey.projectID) || (req.session.survey && req.session.survey.projectID))) {
+    if (req.user && req.session.auth && req.session.auth === 'survey' && ((req.session.currentSurvey && req.session.currentSurvey.projectID) || (req.session.survey && req.session.survey.projectID))) {
         next();
     } else {
         if (req.query.projectID && req.query.location && req.query.projectName) {
@@ -119,10 +110,13 @@ function isSurveyAuth(req, res, next) {
                 projectDesc: req.query.projectDesc
             };
             
-            if (req.session.auth && req.session.auth === 'survey')
+            if (req.user && req.session.auth && req.session.auth === 'survey')
                 next();
-            else
-                res.redirect('/');
+            else {
+                res.redirect('/login');
+                res.session = null;
+            }
+                
         } else {
             req.session.survey = null;
             //res.status(500);
@@ -132,6 +126,15 @@ function isSurveyAuth(req, res, next) {
         }   
     }
 };
+
+////
+// Routes
+app.get('/login', passport.authenticate('azure_ad_oauth2'));
+app.get('/login/callback', passport.authenticate('azure_ad_oauth2', { failureRedirect: '/login' }),
+function (req, res) {
+    req.session.auth = 'survey'
+    res.redirect('/survey');
+});
 
 app.get('/', routes.index);
 app.post('/login', routes.login);
@@ -172,6 +175,3 @@ app.use(function (err, req, res, next) {
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
-
-// Make Public
-module.exports.Mongo = Mongoose;

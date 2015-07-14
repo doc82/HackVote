@@ -2,7 +2,7 @@
 ////
 // Yar Booty
 var Mongoose = require('mongoose');
-var connectString = 'mongodb://localhost'
+var connectString = 'mongodb://hvotedb.cloudapp.net'
 
 ////
 // Private

@@ -1,8 +1,9 @@
 body {
-  padding-top: 15px;
+  padding-top: 25px;
   padding-bottom: 20px;
   background-color: #e50e20;
-  color: #FFFFFF;
+  color: #fff;
+  font-family: Segoe UI SemiLight;
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -34,14 +35,31 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
   display: none;
 }
-
-#survey {
-     margin: auto;
-     width: 18%;
+.projectName {
+  font-family: Segoe UI Semibold;
 }
-
-
+#survey {
+  text-align: center;
+  margin: auto;
+  width: 25%;
+}
+.controls {
+  text-align: left;
+}
+.btn-control {
+  text-align: center;
+}
+.btn {
+  background-color: #000;
+  border-color: #000;
+  width: 80%;
+}
+.btn:hover {
+  background-color: #0072c6;
+  border-color: #0072c6;
+}
 @media (max-width: 480px) {
-
-
+  #survey {
+    width: 90%;
+  }
 }

@@ -2,10 +2,10 @@
   fieldset
     .header
      img(src='/img/Hackathon_Logo.png')
-    // Form Name
-    h3.projectName
+    // Form Name 
+    h3.projectName Test
     // Multiple Radios
-    div(ng-repeat='question in questions')
+    .radios(ng-repeat='question in questions')
       .control-group
         label.control-label(for='radios') {{question.description}}
         .controls(ng-repeat='xx in question.answers track by $index')
@@ -15,5 +15,5 @@
     // Button
     .control-group
       label.control-label(for='singlebutton')
-      .controls
-        button#singlebutton.btn.btn-primary(name='singlebutton') Button
+      .controls.btn-control
+        button#singlebutton.btn.btn-primary(name='singlebutton') Vote
