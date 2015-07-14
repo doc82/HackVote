@@ -20,7 +20,8 @@ var sessConfig = {
         secret: 'i$Am3234D#$@dsaAdl5d2B2d!5sX',
         duration: 60 * 1000,
         activeDuration: 10 * 60 * 1000,
-        store: new MongoStore({ mongooseConnection: Mongoose.connection })
+        store: new MongoStore({ mongooseConnection: Mongoose.connection }),
+        cookie: {}
     };
 
 if (app.get('env') === 'production') {
