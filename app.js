@@ -100,30 +100,22 @@ function isSurveyAuth(req, res, next) {
     // Are we logged in already - go ahead and advance to the survey screen
     if (req.user && req.session.auth && req.session.auth === 'survey' && ((req.session.currentSurvey && req.session.currentSurvey.projectID) || (req.session.survey && req.session.survey.projectID))) {
         next();
-    } else {
-        if (req.query.projectID && req.query.location && req.query.projectName) {
-            req.session.currentSurvey = null;
-            req.session.survey = {
-                projectID: req.query.projectID,
-                location: req.query.location,
-                projectName: req.query.projectName,
-                projectDesc: req.query.projectDesc
-            };
+    } else if (req.query.projectID && req.query.location && req.query.projectName) {
+        req.session.currentSurvey = null;
+        req.session.survey = {
+            projectID: req.query.projectID,
+            location: req.query.location,
+            projectName: req.query.projectName,
+            projectDesc: req.query.projectDesc
+        };
             
-            if (req.user && req.session.auth && req.session.auth === 'survey')
-                next();
-            else {
-                res.redirect('/login');
-                res.session = null;
-            }
-                
-        } else {
-            req.session.survey = null;
-            //res.status(500);
-            res.json({
-                error: "Unable to find session data for this survey. Contact a hacker, or re-scan."
-            });
-        }   
+        if (req.user && req.session.auth && req.session.auth === 'survey')
+            next();
+        else {
+            res.redirect('/login');
+        }
+    } else {
+        res.redirect('/login');     
     }
 };
 
@@ -132,7 +124,7 @@ function isSurveyAuth(req, res, next) {
 app.get('/login', passport.authenticate('azure_ad_oauth2'));
 app.get('/login/callback', passport.authenticate('azure_ad_oauth2', { failureRedirect: '/login' }),
 function (req, res) {
-    req.session.auth = 'survey'
+    req.session.auth = 'survey';
     res.redirect('/survey');
 });
 
@@ -142,6 +134,9 @@ app.get('/survey', isSurveyAuth, routes.survey);
 app.post('/survey', isSurveyAuth, routes.submitSurvey);
 app.get('/votes', isAdminAuth, routes.tallyVotes);
 app.get('/admin', isAdminAuth, routes.admin);
+
+////
+// Error Handlers
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -172,6 +167,9 @@ app.use(function (err, req, res, next) {
     });
 });
 
+
+////
+// Light the fires and kick the tires big daddy
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
