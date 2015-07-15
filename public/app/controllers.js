@@ -7,10 +7,11 @@ function SuccessCtrl($scope, $http, $state) {
 function SurveyCtrl($scope, $http, $state) {
     $scope.form = {vote: ''};
     $scope.error = [];
+    $scope.name = '';
     
     $scope.questions = [
         {
-            description: "Wow! This project…", answers: ['Inspired me!', 'Taught me something new!', 'Is creative!']
+            description: "Wow! This project…", answers: ['Inspired me!', 'Taught me something new!', 'It was really creative!']
         }
     ]
 
@@ -27,6 +28,12 @@ function SurveyCtrl($scope, $http, $state) {
             $scope.error.push(data)
         });
     }
+
+    $http.get('/details').success(function (data) {
+        if (data && !data.error) {
+            $scope.name = data.name;
+        }
+    });
 };
 
 function AdminCtrl($scope, $http, DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder) {

@@ -1,7 +1,7 @@
 ﻿form#survey(ng-submit="submitForm()")
   fieldset
     // Form Name 
-    h3.projectName Test
+    h3.projectName {{name}}
     // Multiple Radios
     .radios(ng-repeat='question in questions')
       .control-group

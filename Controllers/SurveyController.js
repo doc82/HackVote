@@ -106,7 +106,17 @@ exports.details = function (req, res) {
             console.error(err);
             res.json({ err: "There was a problem finding your user account. Contact an admin." });
         } else {
-        
+            user.getProject(req.session.currentSurvey.projectID, function (err, result) {
+                if (err) {
+                    console.error(err);
+                    res.json({ err: "Experiencing database issues - contact an admin" });
+                } else if (result || result === 0) {
+                    var response = {};
+                    response.name = user.surveys[result].projectName;
+
+                    res.json(response);
+                }
+            });
         }
     });
 };
