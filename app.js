@@ -47,8 +47,8 @@ passport.deserializeUser(function(userId,cb){
 passport.use(new AzureAdOAuth2Strategy({
     clientID: '2ce2a7c8-95c6-4915-b7cc-785854203de7',
     clientSecret: 'x8kgKfWTMOaq7FPfKn6A2BBbsaVLYvmiPajFmAFHXU0=',
-    callbackURL: 'http://votehack.azurewebsites.net/login/callback',
-    //callbackURL: 'http://localhost:1337/login/callback',
+    //callbackURL: 'http://votehack.azurewebsites.net/login/callback',
+    callbackURL: 'http://localhost:1337/login/callback',
     resource: '00000002-0000-0000-c000-000000000000',
     tenant: 'microsoft.com'
 },
@@ -85,7 +85,7 @@ app.use(session(sessConfig));
 app.use(passport.initialize());
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(express.json());
+app.use(express.json())
 app.use(express.urlencoded());
 app.use(expressValidator()); 
 app.use(express.methodOverride());
@@ -95,13 +95,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Router + error middleware
 if ('development' == app.get('env')) {
-    app.use(express.errorHandler());
+    app.use(express.errorHandler())
 }
 
 // Speceial case to handle partials.. (stupid)
 app.get('/partials/:name', function (req , res) {
     var name = req.params.name;
-    res.render('partials/' + name);
+    res.render('partials/' + name)
 });
 
 // Handle Admin 
@@ -109,7 +109,7 @@ function isAdminAuth(req, res, next) {
     if (req.session.auth && req.session.auth === 'admin') {
         next();
     } else {
-        res.redirect('/');
+        res.redirect('/')
     }
 };
 
@@ -153,7 +153,7 @@ function (req, res) {
     req.session.auth = 'survey';
     req.session.user = req.user.email;
     console.log("Successfully authed!" + req.session.user);
-    return res.redirect('/success');
+    return res.redirect('/survey');
 });
 
 app.get('/success', routes.success)

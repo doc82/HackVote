@@ -35,6 +35,10 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
   display: none;
 }
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+  background-color: #f00;
+}
 .projectName {
   font-family: Segoe UI Semibold;
 }
@@ -42,6 +46,13 @@ input[type="checkbox"].input-validation-error {
   text-align: center;
   margin: auto;
   width: 25%;
+}
+#error {
+  text-align: center;
+  padding-top: 25px;
+}
+.header {
+  text-align: center;
 }
 .controls {
   text-align: left;

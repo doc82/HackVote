@@ -37,15 +37,6 @@ HackVote.config(function ($stateProvider, $locationProvider) {
         url: '/success',
         views: {
             '' : {
-                templateUrl: 'partials/partial-login-success',
-                controller: SuccessCtrl
-            }
-        }
-    })
-    .state('success-survey', {
-        url: '/success-survey',
-        views: {
-            '' : {
                 templateUrl: 'partials/partial-survey-success',
                 controller: SuccessCtrl
             }

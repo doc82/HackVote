@@ -1,9 +1,7 @@
 ﻿'use strict';
 
 function SuccessCtrl($scope, $http, $state) {
-    setTimeout(function () {
-        window.location.href = '/survey';
-    }, 3000);
+
 };
 
 function SurveyCtrl($scope, $http, $state) {
@@ -12,7 +10,7 @@ function SurveyCtrl($scope, $http, $state) {
     
     $scope.questions = [
         {
-            description: "Wow! This project…", answers: ['Inspired me!', 'Taught me something new!', 'Is creative!', 'Was at the Science Fair']
+            description: "Wow! This project…", answers: ['Inspired me!', 'Taught me something new!', 'Is creative!']
         }
     ]
 
@@ -21,7 +19,7 @@ function SurveyCtrl($scope, $http, $state) {
             if (data && data.error) {
                 console.log(data);
             } else {
-                $state.transitionTo('success-survey');
+                $state.transitionTo('success');
             }
         })
         .error(function (data) {
