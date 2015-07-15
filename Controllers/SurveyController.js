@@ -38,7 +38,7 @@ function findCreateUser(userData, cb) {
 // Public
 exports.submitSurvey = function (req, res) {
     // Find or create a user
-    findCreateUser(req.session.email, function (user) {
+    findCreateUser(req.session.user.email, function (user) {
         if (!user) {
             console.error(err);
             res.json({ err: "There was a problem finding your user account. Contact an admin." });
