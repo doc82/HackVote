@@ -27,7 +27,7 @@ var sessConfig = {
 
 if (app.get('env') === 'production') {
     app.set('trust proxy', 1)       // trust first proxy
-    sessConfig.cookie.secure = true // serve secure cookies
+    //sessConfig.cookie.secure = true // serve secure cookies
 }
 
 // Configure Passport for authentication against AzureAD
