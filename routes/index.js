@@ -64,3 +64,7 @@ exports.admin = function (req, res) {
 exports.tallyVotes = function (req, res) {
     AdminController.getVotes(req, res);
 };
+
+exports.success = function (req, res) {
+    res.render('index');
+};

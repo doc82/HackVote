@@ -1,5 +1,11 @@
 ﻿'use strict';
 
+function SuccessCtrl($scope, $http, $state) {
+    setTimeout(function () {
+        window.location.href = '/survey';
+    }, 3000);
+};
+
 function SurveyCtrl($scope, $http, $state) {
     $scope.form = {vote: ''};
     $scope.error = [];
@@ -15,7 +21,7 @@ function SurveyCtrl($scope, $http, $state) {
             if (data && data.error) {
                 console.log(data);
             } else {
-                $state.transitionTo('success');
+                $state.transitionTo('success-survey');
             }
         })
         .error(function (data) {

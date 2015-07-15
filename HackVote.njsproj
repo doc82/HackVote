@@ -78,6 +78,7 @@
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
     <Content Include="views\partials\partial-admin.jade" />
+    <Content Include="views\partials\partial-login-success.jade" />
     <Content Include="views\partials\partial-survey-success.jade" />
     <Content Include="views\partials\partial-survey.jade" />
     <Content Include="views\partials\partial-login.jade" />
