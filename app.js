@@ -17,7 +17,7 @@ var sessConfig = {
         saveUninitialized: false,
         resave: false,
         secret: 'i$Am3234D#$@dsaAdl5d2B2d!5sX',
-        duration: 60 * 1000,
+        duration: 60 * 1000 * 60,
         activeDuration: 10 * 60 * 1000,
         store: new MongoStore({ mongooseConnection: Mongoose.connection }),
         cookie: {
