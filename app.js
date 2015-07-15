@@ -47,8 +47,8 @@ passport.deserializeUser(function(userId,cb){
 passport.use(new AzureAdOAuth2Strategy({
     clientID: '2ce2a7c8-95c6-4915-b7cc-785854203de7',
     clientSecret: 'x8kgKfWTMOaq7FPfKn6A2BBbsaVLYvmiPajFmAFHXU0=',
-    callbackURL: 'http://votehack.azurewebsites.net/login/callback',
-    //callbackURL: 'http://localhost:1337/login/callback',
+    //callbackURL: 'http://votehack.azurewebsites.net/login/callback',
+    callbackURL: 'http://localhost:1337/login/callback',
     resource: '00000002-0000-0000-c000-000000000000',
     tenant: 'microsoft.com'
 },
@@ -122,7 +122,7 @@ function isSurveyAuth(req, res, next) {
     } else {
         console.log("session fail" + req.session.user);
         console.log("We had an issue with displaying a survey!");
-        res.redirect('/droids');     
+        return res.redirect('/droids');     
     }
 };
 
@@ -140,8 +140,7 @@ function loginCheck(req, res, next) {
         next();
     } else {
         console.log("error! -trying to log in but no query data provided! ");
-        res.redirect('/droids');
-        return;
+        return res.redirect('/droids');
     }
 }
 
@@ -153,8 +152,7 @@ function (req, res) {
     req.session.auth = 'survey';
     req.session.user = req.user.email;
     console.log("Successfully authed!" + req.session.user);
-    res.redirect('/survey');
-    return;
+    return res.redirect('/survey');
 });
 
 app.get('/', routes.index);
