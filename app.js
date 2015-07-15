@@ -63,7 +63,7 @@ function (accessToken, refresh_token, params, profile, done) {
             // original err takes presidence, if not set and this throws, we set it
             err = err || e;
         }
-        console.log(parsed);
+
         if (typeof(parsed) === "undefined") {
             // original err takes presidence, if not set and this if is true, we set it
             err = err || new Error("userdata could not be read");
