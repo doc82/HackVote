@@ -66,7 +66,6 @@ exports.submitSurvey = function (req, res) {
                     user.surveys.push({
                         projectID: req.session.currentSurvey.projectID,
                         projectName: req.session.currentSurvey.projectName,
-                        projectDesc: req.session.currentSurvey.projectDesc,
                         location: req.session.currentSurvey.location,
                         vote: req.body.vote
                     });
@@ -98,5 +97,16 @@ exports.startSurvey = function (req, res) {
         location: req.session.currentSurvey.projectName,
         projectName: req.session.currentSurvey.projectName,
         projectDesc: req.session.currentSurvey.projectDesc
+    });
+};
+
+exports.details = function (req, res) {
+    findCreateUser(req.session.user, function (user) {
+        if (!user) {
+            console.error(err);
+            res.json({ err: "There was a problem finding your user account. Contact an admin." });
+        } else {
+        
+        }
     });
 };

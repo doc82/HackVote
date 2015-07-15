@@ -24,7 +24,6 @@ var UserSchema = new Mongoose.Schema({
             projectID: String,
             location: String,
             projectName: String,
-            projectDesc: String,
             vote: Number
         }]
 });

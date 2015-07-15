@@ -68,3 +68,7 @@ exports.tallyVotes = function (req, res) {
 exports.success = function (req, res) {
     res.render('index');
 };
+
+exports.details = function (req, res) {
+    SurveyController.details(req, res);
+};

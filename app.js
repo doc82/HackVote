@@ -47,8 +47,8 @@ passport.deserializeUser(function(userId,cb){
 passport.use(new AzureAdOAuth2Strategy({
     clientID: '2ce2a7c8-95c6-4915-b7cc-785854203de7',
     clientSecret: 'x8kgKfWTMOaq7FPfKn6A2BBbsaVLYvmiPajFmAFHXU0=',
-    //callbackURL: 'http://votehack.azurewebsites.net/login/callback',
-    callbackURL: 'http://localhost:1337/login/callback',
+    callbackURL: 'http://votehack.azurewebsites.net/login/callback',
+    //callbackURL: 'http://localhost:1337/login/callback',
     resource: '00000002-0000-0000-c000-000000000000',
     tenant: 'microsoft.com'
 },
@@ -134,8 +134,7 @@ function loginCheck(req, res, next) {
         req.session.survey = {
             projectID: req.query.projectID,
             location: req.query.location,
-            projectName: req.query.projectName,
-            projectDesc: req.query.projectDesc
+            projectName: req.query.projectName
         };
 
         next();
@@ -156,12 +155,19 @@ function (req, res) {
     return res.redirect('/survey');
 });
 
-app.get('/success', routes.success)
+
+// Login and Admin
 app.get('/', routes.index);
-app.get('/adminportal', routes.index)
+app.get('/adminportal', routes.index);
 app.post('/login', routes.login);
+
+// Survey
 app.get('/survey', isSurveyAuth, routes.survey);
 app.post('/survey', isSurveyAuth, routes.submitSurvey);
+app.get('/details', isSurveyAuth, routes.details);
+app.get('/success', routes.success);
+
+// Admin
 app.get('/votes', isAdminAuth, routes.tallyVotes);
 app.get('/admin', isAdminAuth, routes.admin);
 
