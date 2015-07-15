@@ -140,7 +140,8 @@ function loginCheck(req, res, next) {
         next();
     } else {
         console.log("error! -trying to log in but no query data provided! ");
-        res.redirect('/droids')
+        res.redirect('/droids');
+        return;
     }
 }
 
@@ -153,6 +154,7 @@ function (req, res) {
     req.session.user = req.user.email;
     console.log("Successfully authed!" + req.session.user);
     res.redirect('/survey');
+    return;
 });
 
 app.get('/', routes.index);
