@@ -47,7 +47,8 @@ passport.deserializeUser(function(userId,cb){
 passport.use(new AzureAdOAuth2Strategy({
     clientID: '2ce2a7c8-95c6-4915-b7cc-785854203de7',
     clientSecret: 'x8kgKfWTMOaq7FPfKn6A2BBbsaVLYvmiPajFmAFHXU0=',
-    callbackURL: 'http://votehack.azurewebsites.net/login/callback',
+    //callbackURL: 'http://votehack.azurewebsites.net/login/callback',
+    callbackURL: 'http://localhost:1337/login/callback',
     resource: '00000002-0000-0000-c000-000000000000',
     tenant: 'microsoft.com'
 },
@@ -62,7 +63,7 @@ function (accessToken, refresh_token, params, profile, done) {
             // original err takes presidence, if not set and this throws, we set it
             err = err || e;
         }
-        if (typeof(parsed) === "undefined" || !parsed.email) {
+        if (typeof(parsed) === "undefined" || !parsed.mail) {
             // original err takes presidence, if not set and this if is true, we set it
             err = err || new Error("user has no email");
         }
@@ -110,9 +111,17 @@ function isAdminAuth(req, res, next) {
 // todo: should probably be replaced by a passport strategy
 function isSurveyAuth(req, res, next) {
     // Are we logged in already - go ahead and advance to the survey screen
-    if (req.user && req.session.auth && req.session.auth === 'survey' && ((req.session.currentSurvey && req.session.currentSurvey.projectID) || (req.session.survey && req.session.survey.projectID))) {
+    if (req.session.user && req.session.auth && req.session.auth === 'survey' && ((req.session.currentSurvey && req.session.currentSurvey.projectID) || (req.session.survey && req.session.survey.projectID))) {
         next();
-    } else if (req.query.projectID && req.query.location && req.query.projectName) {
+    } else {
+        res.redirect('/droids');     
+    }
+};
+
+function loginCheck(req, res, next) {
+    if (req.user && req.session.auth && req.session.auth === 'survey' && ((req.session.currentSurvey && req.session.currentSurvey.projectID) || (req.session.survey && req.session.survey.projectID))) {
+        res.redirect('/survey');
+    } else if (req.query.projectID ) {
         req.session.currentSurvey = null;
         req.session.survey = {
             projectID: req.query.projectID,
@@ -120,27 +129,24 @@ function isSurveyAuth(req, res, next) {
             projectName: req.query.projectName,
             projectDesc: req.query.projectDesc
         };
-            
-        if (req.user && req.session.auth && req.session.auth === 'survey')
-            next();
-        else {
-            res.redirect('/login');
-        }
+        next();
     } else {
-        res.redirect('/login');     
+        res.redirect('/droids')
     }
-};
+}
 
 ////
 // Routes
-app.get('/login', passport.authenticate('azure_ad_oauth2'));
+app.get('/login', loginCheck, passport.authenticate('azure_ad_oauth2'));
 app.get('/login/callback', passport.authenticate('azure_ad_oauth2', { failureRedirect: '/droids' }),
 function (req, res) {
     req.session.auth = 'survey';
+    req.session.user = req.user.email;
     res.redirect('/survey');
 });
 
 app.get('/', routes.index);
+app.get('/adminportal', routes.index)
 app.post('/login', routes.login);
 app.get('/survey', isSurveyAuth, routes.survey);
 app.post('/survey', isSurveyAuth, routes.submitSurvey);
@@ -150,7 +156,7 @@ app.get('/admin', isAdminAuth, routes.admin);
 ////
 // Error Handlers
 
-// catch 404 and forward to error handler
+// catch 404 and forward to error handler   
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
