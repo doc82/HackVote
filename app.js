@@ -119,7 +119,7 @@ function isSurveyAuth(req, res, next) {
 };
 
 function loginCheck(req, res, next) {
-    if (req.user && req.session.auth && req.session.auth === 'survey' && ((req.session.currentSurvey && req.session.currentSurvey.projectID) || (req.session.survey && req.session.survey.projectID))) {
+    if (req.session.user && req.session.auth && req.session.auth === 'survey' && ((req.session.currentSurvey && req.session.currentSurvey.projectID) || (req.session.survey && req.session.survey.projectID))) {
         res.redirect('/survey');
     } else if (req.query.projectID ) {
         req.session.currentSurvey = null;
@@ -131,6 +131,7 @@ function loginCheck(req, res, next) {
         };
         next();
     } else {
+        console.log("error! -trying to log in but no query data provided! ");
         res.redirect('/droids')
     }
 }
@@ -142,6 +143,7 @@ app.get('/login/callback', passport.authenticate('azure_ad_oauth2', { failureRed
 function (req, res) {
     req.session.auth = 'survey';
     req.session.user = req.user.email;
+    console.log("Successfully authed!" + req.session.user);
     res.redirect('/survey');
 });
 
