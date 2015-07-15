@@ -117,8 +117,10 @@ function isAdminAuth(req, res, next) {
 function isSurveyAuth(req, res, next) {
     // Are we logged in already - go ahead and advance to the survey screen
     if (req.session.user && req.session.auth && req.session.auth === 'survey' && ((req.session.currentSurvey && req.session.currentSurvey.projectID) || (req.session.survey && req.session.survey.projectID))) {
+        console.log("Succesfully going into survey mode!");
         next();
     } else {
+        console.log("We had an issue with displaying a survey!");
         res.redirect('/droids');     
     }
 };
