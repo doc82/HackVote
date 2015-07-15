@@ -120,6 +120,7 @@ function isSurveyAuth(req, res, next) {
         console.log("Succesfully going into survey mode!");
         next();
     } else {
+        console.log("session fail" + req.session.user);
         console.log("We had an issue with displaying a survey!");
         res.redirect('/droids');     
     }
