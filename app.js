@@ -156,6 +156,7 @@ app.post('/login', routes.login);
 app.get('/survey', isSurveyAuth, routes.survey);
 app.post('/survey', isSurveyAuth, routes.submitSurvey);
 app.get('/votes', isAdminAuth, routes.tallyVotes);
+app.get('/votes.xlsx', isAdminAuth, routes.tallyVotesAsExcel);
 app.get('/admin', isAdminAuth, routes.admin);
 
 ////

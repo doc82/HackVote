@@ -64,3 +64,7 @@ exports.admin = function (req, res) {
 exports.tallyVotes = function (req, res) {
     AdminController.getVotes(req, res);
 };
+
+exports.tallyVotesAsExcel = function (req, res) {
+    AdminController.getVotesAsExcel(req, res);
+};

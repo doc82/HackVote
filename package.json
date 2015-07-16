@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "connect-mongo": "^0.8.1",
+    "excel-export": "^0.4.1",
     "express": "3.4.4",
     "express-session": "^1.11.3",
     "express-validator": "^2.12.2",
