@@ -45,6 +45,7 @@
     <Compile Include="public\javascripts\angular.js" />
     <Compile Include="public\javascripts\angular.min.js" />
     <Compile Include="public\javascripts\jquery.dataTables.min.js" />
+    <Compile Include="public\javascripts\ui-grid.js" />
     <Compile Include="routes\index.js" />
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +75,7 @@
     <Content Include="public\stylesheets\datatables.bootstrap.css" />
     <Content Include="public\stylesheets\style.css" />
     <Content Include="public\stylesheets\style.styl" />
+    <Content Include="public\stylesheets\ui-grid.css" />
     <Content Include="README.md" />
     <Content Include="views\droids.jade" />
     <Content Include="views\contact.jade" />

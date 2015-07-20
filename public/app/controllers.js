@@ -105,8 +105,6 @@ function AdminCtrl($scope, $http, DTOptionsBuilder, DTColumnDefBuilder, DTColumn
     $scope.export = function () {
         location.href = "export";
     }
-
-    $scope.dtOptions = DTOptionsBuilder.newOptions()
 };
 
 function LoginCtrl($scope, $http, $state) {
