@@ -65,6 +65,10 @@ exports.tallyVotes = function (req, res) {
     AdminController.getVotes(req, res);
 };
 
+exports.exportData = function (req, res) {
+    AdminController.exportData(req, res);
+};
+
 exports.success = function (req, res) {
     res.render('index');
 };

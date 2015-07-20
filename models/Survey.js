@@ -2,7 +2,7 @@
 ////
 // Yar Booty
 var Mongoose = require('mongoose');
-var connectString = 'mongodb://hvotedb.cloudapp.net'
+var connectString = 'mongodb://hvotedb.cloudapp.net';
 
 ////
 // Private
@@ -17,6 +17,7 @@ Mongoose.connection.on('error', function (err) {
     console.error('MongoDB error: %s', err);
 });
 
+////
 // User Schema
 var UserSchema = new Mongoose.Schema({
     alias: { type: String, required: true, unique: true },
@@ -28,7 +29,44 @@ var UserSchema = new Mongoose.Schema({
         }]
 });
 
+////
 // User Model Methods
+UserSchema.statics.exportData = function (cb) {
+    this.find({}, function (err, users) {
+        if (err || !users || users.length <= 0) {
+
+        } else {
+            var packet = [],
+                le = users.length;
+
+            while (le) {
+                var user = users[le - 1];
+                
+                if (user && user.surveys && user.surveys.length && user.surveys.length > 0) {
+                    var xx = user.surveys.length
+                    
+                    while (xx) {
+                        if (user.surveys[xx - 1] && user.surveys[xx - 1].projectID) {
+                            survey = user.surveys[xx - 1],
+                            insert = {};
+
+                            insert.alias = user.alias;
+                            insert.projectID = survey.projectID;
+                            insert.vote = survey.vote
+
+                            packet.push(insert);
+                        }
+                        xx--;
+                    } //while
+                }
+                le--;
+            } // while
+
+            cb(packet);
+        }
+    })
+};
+
 UserSchema.statics.tallyVotes = function (cb) {
     this.find({}, function (err, users) {
         if (err || !users || users.length <= 0) {

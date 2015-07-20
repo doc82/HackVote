@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var HackVote = angular.module('HackVote', ['ui.router', 'datatables', 'datatables.columnfilter']);
+var HackVote = angular.module('HackVote', ['ui.router', 'datatables', 'datatables.columnfilter', 'datatables.bootstrap']);
 
 HackVote.config(function ($stateProvider, $locationProvider) {
     $locationProvider.html5Mode({ enabled: true, rewriteLinks: false });

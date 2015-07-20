@@ -60,10 +60,17 @@ input[type="checkbox"].input-validation-error {
 .btn-control {
   text-align: center;
 }
+#singlebutton {
+  width: 80%;
+}
+#smallButton {
+  width: 150px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
 .btn {
   background-color: #000;
   border-color: #000;
-  width: 80%;
 }
 .btn:hover {
   background-color: #0072c6;

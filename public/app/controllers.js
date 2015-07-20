@@ -13,7 +13,8 @@ function SurveyCtrl($scope, $http, $state) {
         {
             description: "Wow! This project…", answers: ['Inspired me!', 'Taught me something new!', 'It was really creative!']
         }
-    ]
+    ];
+    
 
     $scope.submitForm = function () {
         $http.post('/survey', $scope.form).success(function (data) {
@@ -44,49 +45,52 @@ function AdminCtrl($scope, $http, DTOptionsBuilder, DTColumnDefBuilder, DTColumn
     
     // Config DataTable
     $scope.dtOptions = DTOptionsBuilder.newOptions()
+        .withBootstrap()
         .withPaginationType('full_numbers')
         .withDisplayLength(100)
-        .withDOM('pitrfl')
+        //.withDOM('pitrfl')
         .withColumnFilter({
-        aoColumns: [
-            {
-                type: 'text'
-            }, {
-                type: 'text',
-                bRegex: true,
-                bSmart: true
-            }, {
-                type: 'text',
-                bRegex: true,
-                bSmart: true
-            },
-            {
-                type: "number"
-            },
-            {
-                type: "number"
-            },
-            {
-                type: "number"
-            },
-            {
-                type: "number"
-            },
-            {
-                type: "number"
-            }
-        ]
+            aoColumns: [
+                {
+                    type: 'text',
+                    bRegex: true,
+                    bSmart: true
+                }, {
+                    type: 'text',
+                    bRegex: true,
+                    bSmart: true
+                }, {
+                    type: 'select',
+                    bSmart: true,
+                    values: [
+                        'redmondsf', 'indiasf', 'chinasf', 'israelsf', 'lodonsf', 'svcsf', 'Redmond'
+                    ]
+                },
+                {
+                    type: "number"
+                },
+                {
+                    type: "number"
+                },
+                {
+                    type: "number"
+                },
+                {
+                    type: "number"
+                }
+            ]
     });
+
     $scope.dtColumns = [
         DTColumnBuilder.newColumn('ID').withTitle('ID'),
-        DTColumnDefBuilder.newColumnDef(1),
-        DTColumnDefBuilder.newColumnDef(2),
-        DTColumnDefBuilder.newColumnDef(3),
-        DTColumnDefBuilder.newColumnDef(4),
-        DTColumnDefBuilder.newColumnDef(5),
-        DTColumnDefBuilder.newColumnDef(6),
-        DTColumnDefBuilder.newColumnDef(7)
+        DTColumnBuilder.newColumn('Name').withTitle('Name'),
+        DTColumnBuilder.newColumn('Location').withTitle('Location'),
+        DTColumnBuilder.newColumn('Inspired').withTitle('Inspired'),
+        DTColumnBuilder.newColumn('Taught').withTitle('Taught'),
+        DTColumnBuilder.newColumn('Creative').withTitle('Creative'),
+        DTColumnBuilder.newColumn('Total').withTitle('Total')
     ];
+
     // This is Gross and may have a perf problem...
     $http.get('/votes').success(function (data) {
         if (data) {
@@ -97,6 +101,10 @@ function AdminCtrl($scope, $http, DTOptionsBuilder, DTColumnDefBuilder, DTColumn
             console.log(data);
         }
     });
+    
+    $scope.export = function () {
+        location.href = "export";
+    }
 
     $scope.dtOptions = DTOptionsBuilder.newOptions()
 };

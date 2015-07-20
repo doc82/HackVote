@@ -10,6 +10,7 @@
     MongoStore = require('connect-mongo')(session),
     Mongoose = require('mongoose'),
     request = require('request'),
+    json2xls = require('json2xls'),
     app = express();
 
 // Config DB && Session 
@@ -47,8 +48,8 @@ passport.deserializeUser(function(userId,cb){
 passport.use(new AzureAdOAuth2Strategy({
     clientID: '2ce2a7c8-95c6-4915-b7cc-785854203de7',
     clientSecret: 'x8kgKfWTMOaq7FPfKn6A2BBbsaVLYvmiPajFmAFHXU0=',
-    callbackURL: 'http://votehack.azurewebsites.net/login/callback',
-    //callbackURL: 'http://localhost:1337/login/callback',
+    //callbackURL: 'http://votehack.azurewebsites.net/login/callback',
+    callbackURL: 'http://localhost:1337/login/callback',
     resource: '00000002-0000-0000-c000-000000000000',
     tenant: 'microsoft.com'
 },
@@ -89,9 +90,11 @@ app.use(express.json())
 app.use(express.urlencoded());
 app.use(expressValidator()); 
 app.use(express.methodOverride());
+app.use(json2xls.middleware);
 app.use(app.router);
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Router + error middleware
 if ('development' == app.get('env')) {
@@ -170,6 +173,7 @@ app.get('/success', routes.success);
 // Admin
 app.get('/votes', isAdminAuth, routes.tallyVotes);
 app.get('/admin', isAdminAuth, routes.admin);
+app.get('/export', isAdminAuth, routes.exportData);
 
 ////
 // Error Handlers
@@ -202,7 +206,6 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
-
 
 ////
 // Light the fires and kick the tires big daddy

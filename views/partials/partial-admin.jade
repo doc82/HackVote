@@ -1,16 +1,7 @@
 ﻿h3 Welcome Admiral!
+button#smallButton.btn.btn-primary(name='singlebutton' ng-click='export()') Vote
 div
-    table.table.table-striped.table-bordered.hover(datatable='ng', dt-options='dtOptions', dt-columns='dtColumns', dt-instance='dtInstance')
-      thead
-        tr
-          th ID
-          th Name
-          th Location
-          th Inspired
-          th Taught 
-          th Creative
-          th Meh
-          th Total
+    table.table.table-striped.row-border.hover(datatable='ng', dt-options='dtOptions', dt-columns='dtColumns', dt-instance='dtInstance')
       tbody
         tr(ng-repeat='person in votes')
           td {{ person.projectID }}
@@ -19,5 +10,13 @@ div
           td {{ person.vote[0] }}
           td {{ person.vote[1] }}
           td {{ person.vote[2] }}
-          td {{ person.vote[3] }}
           td {{ person.total }}
+       tfoot
+        tr
+          th ID
+          th Name
+          th Location
+          th Inspired
+          th Taught 
+          th Creative
+          th Total

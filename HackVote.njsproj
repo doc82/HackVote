@@ -37,6 +37,8 @@
     <Compile Include="models\Survey.js" />
     <Compile Include="public\app\app.js" />
     <Compile Include="public\app\controllers.js" />
+    <Compile Include="public\javascripts\angular-datatables.bootstrap.js" />
+    <Compile Include="public\javascripts\angular-datatables.columnfilter.js" />
     <Compile Include="public\javascripts\angular-datatables.columnfilter.min.js" />
     <Compile Include="public\javascripts\angular-datatables.js" />
     <Compile Include="public\javascripts\angular-ui-router.js" />
@@ -69,6 +71,7 @@
     <Content Include="public\javascripts\jquery-1.10.2.min.map" />
     <Content Include="public\stylesheets\bootstrap.css" />
     <Content Include="public\stylesheets\bootstrap.min.css" />
+    <Content Include="public\stylesheets\datatables.bootstrap.css" />
     <Content Include="public\stylesheets\style.css" />
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
