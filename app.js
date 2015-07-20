@@ -131,6 +131,22 @@ function isSurveyAuth(req, res, next) {
 
 function loginCheck(req, res, next) {
     if (req.session.user && req.session.auth && req.session.auth === 'survey' && ((req.session.currentSurvey && req.session.currentSurvey.projectID) || (req.session.survey && req.session.survey.projectID))) {
+        if (req.session.currentSurvey && req.session.currentSurvey.projectID && req.query.projectID) {
+            req.session.currentSurvey = null;
+            req.session.survey = {
+                projectID: req.query.projectID,
+                location: req.query.location,
+                projectName: req.query.projectName
+            };
+        } else if (req.session.survey && req.session.survey.projectID && req.query.projectID) {
+            req.session.currentSurvey = null;
+            req.session.survey = {
+                projectID: req.query.projectID,
+                location: req.query.location,
+                projectName: req.query.projectName
+            };
+        }
+
         return res.redirect('/survey');
     } else if (req.query.projectID ) {
         req.session.currentSurvey = null;

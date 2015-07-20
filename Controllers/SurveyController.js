@@ -56,7 +56,7 @@ exports.submitSurvey = function (req, res) {
                             console.error(err);
                             res.json({ err: "Experiencing database issues - contact an admin" });
                         } else {
-                            req.session.lastSurvey = req.session.currentSurvey;
+                            req.session.survey = null;
                             req.session.currentSurvey = null;
                             res.json({ success: true });
                         }
@@ -75,7 +75,7 @@ exports.submitSurvey = function (req, res) {
                             console.error(err);
                             res.json({ err: "Experiencing database issues - contact an admin" });
                         } else {
-                            req.session.lastSurvey = req.session.currentSurvey;
+                            req.session.survey = null;
                             req.session.currentSurvey = null;
                             res.json({ success: true });
                         }
