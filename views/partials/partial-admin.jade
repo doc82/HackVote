@@ -1,21 +1,21 @@
 ﻿h3 Welcome Admiral!
 button#smallButton.btn.btn-primary(name='singlebutton' ng-click='export()') Export
 div
-    table.table.table-striped.row-border.hover(datatable='ng', dt-options='dtOptions', dt-columns='dtColumns', dt-instance='dtInstance')
+    table.table.table-striped.table-bordered.row-border.hover(datatable='ng', dt-options='dtOptions', dt-columns='dtColumns', dt-instance='dtInstance' width='100%')
       tbody
         tr(ng-repeat='person in votes')
-          td {{ person.projectID }}
-          td {{ person.projectName }}
+          
           td {{ person.location }}
+          td {{ person.projectName }}
           td {{ person.vote[0] }}
           td {{ person.vote[1] }}
           td {{ person.vote[2] }}
           td {{ person.total }}
        tfoot
         tr
-          th ID
-          th Name
+          
           th Location
+          th Name
           th Inspired
           th Taught 
           th Creative

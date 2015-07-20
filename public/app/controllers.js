@@ -52,11 +52,12 @@ function AdminCtrl($scope, $http, DTOptionsBuilder, DTColumnDefBuilder, DTColumn
         //.withdom('pitrfl')
         .withColumnFilter({
             aoColumns: [
-                {
-                    type: 'text',
-                    bRegex: true,
-                    bSmart: true
-                }, {
+            //    {
+            //        type: 'text',
+            //        bRegex: true,
+            //        bSmart: true
+            //}, 
+            {
                     type: 'text',
                     bRegex: true,
                     bSmart: true
@@ -83,12 +84,12 @@ function AdminCtrl($scope, $http, DTOptionsBuilder, DTColumnDefBuilder, DTColumn
     });
 
     $scope.dtColumns = [
-        DTColumnBuilder.newColumn('ID').withTitle('ID'),
-        DTColumnBuilder.newColumn('Name').withTitle('Name'),
-        DTColumnBuilder.newColumn('Location').withTitle('Location'),
+        //DTColumnBuilder.newColumn('ID').withTitle('ID'),
+        DTColumnBuilder.newColumn('Name').withTitle('Location'),
+        DTColumnBuilder.newColumn('Location').withTitle('Name'),
         DTColumnBuilder.newColumn('Inspired').withTitle('Inspired'),
         DTColumnBuilder.newColumn('Taught').withTitle('Taught'),
-        DTColumnBuilder.newColumn('Creative').withTitle('Creative'),
+        DTColumnBuilder.newColumn('Creative').withTitle('Creative').withOption('sWidth', '5%'),
         DTColumnBuilder.newColumn('Total').withTitle('Total')
     ];
 
