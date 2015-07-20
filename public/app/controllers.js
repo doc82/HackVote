@@ -47,8 +47,8 @@ function AdminCtrl($scope, $http, DTOptionsBuilder, DTColumnDefBuilder, DTColumn
     $scope.dtOptions = DTOptionsBuilder.newOptions()
         .withBootstrap()
         .withPaginationType('full_numbers')
-        .withDisplayLength(100)
-        //.withDOM('pitrfl')
+        .withDisplayLength(10)
+        //.withdom('pitrfl')
         .withColumnFilter({
             aoColumns: [
                 {

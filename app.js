@@ -135,14 +135,14 @@ function loginCheck(req, res, next) {
             req.session.currentSurvey = null;
             req.session.survey = {
                 projectID: req.query.projectID,
-                location: req.query.location,
+                location: req.query.location.toLowerCase(),
                 projectName: req.query.projectName
             };
         } else if (req.session.survey && req.session.survey.projectID && req.query.projectID) {
             req.session.currentSurvey = null;
             req.session.survey = {
                 projectID: req.query.projectID,
-                location: req.query.location,
+                location: req.query.location.toLowerCase(),
                 projectName: req.query.projectName
             };
         }
@@ -152,11 +152,11 @@ function loginCheck(req, res, next) {
         req.session.currentSurvey = null;
         req.session.survey = {
             projectID: req.query.projectID,
-            location: req.query.location,
+            location: req.query.location.toLowerCase(),
             projectName: req.query.projectName
         };
 
-        next();
+       return next();
     } else {
         console.log("error! -trying to log in but no query data provided! ");
         return res.redirect('/droids');

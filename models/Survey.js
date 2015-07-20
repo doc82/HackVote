@@ -97,7 +97,7 @@ UserSchema.statics.tallyVotes = function (cb) {
                             } else {
                                 packet[ref.projectID] = {
                                     vote: {},
-                                    location: ref.location,
+                                    location: ref.location.toLowerCase(),
                                     projectName: ref.projectName,
                                     projectID: ref.projectID,
                                     total: 0
