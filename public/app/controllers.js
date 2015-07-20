@@ -69,7 +69,8 @@ function AdminCtrl($scope, $http, DTOptionsBuilder, DTColumnDefBuilder, DTColumn
                     ]
                 },
                 {
-                    type: "number"
+                    type: "number",
+                    sWidth: '60px'
                 },
                 {
                     type: "number"
@@ -89,7 +90,7 @@ function AdminCtrl($scope, $http, DTOptionsBuilder, DTColumnDefBuilder, DTColumn
         DTColumnBuilder.newColumn('Location').withTitle('Name'),
         DTColumnBuilder.newColumn('Inspired').withTitle('Inspired'),
         DTColumnBuilder.newColumn('Taught').withTitle('Taught'),
-        DTColumnBuilder.newColumn('Creative').withTitle('Creative').withOption('sWidth', '5%'),
+        DTColumnBuilder.newColumn('Creative').withTitle('Creative').withOption('sWidth', '60px'),
         DTColumnBuilder.newColumn('Total').withTitle('Total')
     ];
 

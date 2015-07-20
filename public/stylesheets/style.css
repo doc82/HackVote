@@ -57,6 +57,10 @@ input[type="checkbox"].input-validation-error {
 .numberCol {
   width: 90px;
 }
+.center h3 {
+  text-aling: center;
+  margin: auto;
+}
 .controls {
   text-align: left;
 }
