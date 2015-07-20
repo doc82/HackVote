@@ -21,6 +21,7 @@ exports.login = function (req, res) {
         req.session.auth = 'admin';
         res.json({ url: 'admin' });
     } else {
+        req.session = {};
         // send them back to the home screenr
         res.status(500);
         res.json({
