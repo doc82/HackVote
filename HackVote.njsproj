@@ -44,6 +44,8 @@
     <Compile Include="public\javascripts\angular-ui-router.js" />
     <Compile Include="public\javascripts\angular.js" />
     <Compile Include="public\javascripts\angular.min.js" />
+    <Compile Include="public\javascripts\dataTables.responsive.js" />
+    <Compile Include="public\javascripts\jquery.dataTables.columnFilter.js" />
     <Compile Include="public\javascripts\jquery.dataTables.min.js" />
     <Compile Include="public\javascripts\ui-grid.js" />
     <Compile Include="routes\index.js" />
@@ -73,6 +75,7 @@
     <Content Include="public\stylesheets\bootstrap.css" />
     <Content Include="public\stylesheets\bootstrap.min.css" />
     <Content Include="public\stylesheets\datatables.bootstrap.css" />
+    <Content Include="public\stylesheets\dataTables.responsive.css" />
     <Content Include="public\stylesheets\style.css" />
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="public\stylesheets\ui-grid.css" />

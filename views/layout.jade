@@ -6,12 +6,13 @@ html
     title #{title} - My Express Application
     link(rel='stylesheet', type='text/css', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', type='text/css', href='/stylesheets/datatables.bootstrap.css')
+    link(rel='stylesheet', type='text/css', href='/stylesheets/datatables.responsive.css')
     link(rel='stylesheet', type='text/css', href='/stylesheets/style.css')
     script(src='/javascripts/modernizr-2.6.2.js')
     base(href='/')
   body(ng-app='HackVote')
 
-    .container.body-content
+    .container
       .header
         img(src='/img/Hackathon_Logo.png')
        block content
@@ -19,6 +20,7 @@ html
     script(src='/javascripts/jquery-1.10.2.js')
     script(src='/javascripts/jquery.dataTables.min.js')
     script(src='/javascripts/jquery.dataTables.columnFilter.js')
+    script(src='/javascripts/dataTables.responsive.js')
     script(src='/javascripts/bootstrap.js')
     script(src='/javascripts/respond.js')
     script(src='/javascripts/angular.js')
