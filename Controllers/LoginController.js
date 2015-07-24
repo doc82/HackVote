@@ -60,7 +60,7 @@ exports.login = function (req, res) {
                 req.session.auth = 'survey';
                 req.session.user = req.body.user;
                 console.log("Successfully authed!" + req.session.user);
-                return res.json( { error: null, url: '/survey'})
+                return res.json( { error: null, url: 'survey'})
             }
         });
     }    
