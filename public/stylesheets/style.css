@@ -9,6 +9,9 @@ body {
   background: #fff;
   color: #000;
 }
+.panel-footer {
+  color: #000;
+}
 .admin .odd .ng-binding {
   background: rgba(0,0,0,0.6);
 }
