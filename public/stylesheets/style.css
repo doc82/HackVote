@@ -9,6 +9,9 @@ body {
   background: #fff;
   color: #000;
 }
+.radio input {
+  font-size: 18px;
+}
 .panel-footer {
   color: #000;
 }
