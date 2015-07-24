@@ -15,6 +15,13 @@ function SurveyCtrl($scope, $http, $state) {
         }
     ];
     
+    $scope.init = function () {
+        $http.get('/details').success(function (data) {
+            if (data && !data.error) {
+                $scope.name = data.name;
+            }
+        });
+    }
 
     $scope.submitForm = function () {
         $http.post('/survey', $scope.form).success(function (data) {
@@ -30,11 +37,7 @@ function SurveyCtrl($scope, $http, $state) {
         });
     }
 
-    $http.get('/details').success(function (data) {
-        if (data && !data.error) {
-            $scope.name = data.name;
-        }
-    });
+    $scope.init();
 };
 
 function AdminCtrl($scope, $http, DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder) {
