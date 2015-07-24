@@ -150,7 +150,7 @@ function loginCheck(req, res, next) {
             req.session.survey = prepPacket(req);
         }
 
-        return res.redirect('/survey');
+        return next();
     } else if (req.query.projectName ) {
         req.session.currentSurvey = null;
         req.session.survey = prepPacket(req);
