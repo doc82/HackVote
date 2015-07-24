@@ -10,10 +10,13 @@ var SurveyController = require('../Controllers/SurveyController'),
     utils = require('util');
 
 exports.index = function (req, res) {
-    res.render('index', { title: 'Express', year: new Date().getFullYear() });
+    res.render('index', { title: 'Garage Science Fair', year: new Date().getFullYear() });
 };
 
-//TODO: We need to sync this with Active Directory
+exports.showSurveyLogin = function (req, res) {
+    res.render('index', { title: 'Hackathon Survey Login' });
+};
+
 exports.login = function (req, res) {
     // validate params - check for injection attacks - winter is coming
     var errors = null; //todo: replace with validation shenanigans
@@ -36,7 +39,7 @@ exports.contact = function (req, res) {
 exports.survey = function (req, res) {
 	if (!req.session.survey && !req.session.currentSurvey) {
 		console.log("We encountered an error! - please re-scan!");
-		res.render('droids', { title: 'Hackathon Survey', err: "Please re-scan to vote!" });
+		res.render('droids', { title: 'Survey Error', err: "Please re-scan to vote!" });
 	} else {
 		SurveyController.startSurvey(req, res);
 	}
@@ -70,7 +73,7 @@ exports.exportData = function (req, res) {
 };
 
 exports.success = function (req, res) {
-    res.render('index');
+    res.render('index', { title: 'Hackathon Survey' });
 };
 
 exports.details = function (req, res) {

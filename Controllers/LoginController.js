@@ -1,11 +1,41 @@
 ﻿
 ////
 // Yar Booty
-var User = require('../models/Survey'),
+var User = require('../models/Survey').User,
     crypto = require('crypto');
 var admin = {
     name: 'GarageMaster',
     password: 'TheGTeam!'
+}
+
+////
+// Private
+// Find a user and return - otherwise create a new one
+function findCreateUser(userData, cb) {
+    User.findOne({ alias: userData }, function (err, user) {
+        if (err) {
+            console.error(err);
+            cb({ error: err });
+        } else if (user) {
+            // Found the user - no need to save a new one
+            cb(user);
+        } else {
+            // Create a new user
+            var newUser = new User({
+                alias: userData,
+                survey : []
+            });
+            
+            newUser.save(function (err, user) {
+                if (err) {
+                    console.error(err);
+                    cb({ error: err });
+                } else {
+                    cb(user);
+                }
+            });
+        }
+    });
 }
 
 ////
@@ -21,12 +51,18 @@ exports.login = function (req, res) {
         req.session.auth = 'admin';
         res.json({ url: 'admin' });
     } else {
-        req.session = {};
-        // send them back to the home screenr
-        res.status(500);
-        res.json({
-            error: "Unable to find session data for this survey. Contact a hacker, or re-scan."
-        });  
+        findCreateUser(req.body.user, function (packet) {
+            if (!packet || packet.error) {
+                return res.json({
+                    error: "Experienced an issue.. Contact an adminstrator.."
+                });
+            } else {
+                req.session.auth = 'survey';
+                req.session.user = req.body.user;
+                console.log("Successfully authed!" + req.session.user);
+                return res.json( { error: null, url: '/survey'})
+            }
+        });
     }    
 };
 

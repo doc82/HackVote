@@ -65,7 +65,7 @@ function AdminCtrl($scope, $http, DTOptionsBuilder, DTColumnDefBuilder, DTColumn
                     type: 'select',
                     bSmart: true,
                     values: [
-                        'redmondsf', 'indiasf', 'chinasf', 'israelsf', 'lodonsf', 'svcsf', 'Redmond'
+                        'redmondsf', 'indiasf', 'chinasf', 'israelsf', 'lodonsf', 'svcsf'
                     ]
                 },
                 {
@@ -140,4 +140,36 @@ function LoginCtrl($scope, $http, $state) {
             }
         }
     }  
+};
+
+function LoginSurveyCtrl($scope, $http, $state) {
+    $scope.form = {};
+    $scope.error = [];
+    
+    $scope.submitForm = function () {
+        if ($scope.form && $scope.form.user && $scope.form.location) {
+            $http.post('/login', $scope.form).success(function (data) {
+                if (data && data.error) {
+                    $scope.error = [];
+                    $scope.error.push(data.error);
+                } else {
+                    $state.transitionTo(data.url);
+                }
+            }).
+            error(function (data) {
+                $scope.error = [];
+                $scope.error.push(data.error);
+            });
+        } else {
+            $scope.error = []
+            if (!$scope.form.user) {
+                console.log("no user!");
+                $scope.error.push("Please enter your MS-Corp Alias");
+            }
+            
+            if (!$scope.form.location) {
+                $scope.error.push("Please select a location!");
+            }
+        }
+    }
 };

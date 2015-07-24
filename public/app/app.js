@@ -24,6 +24,15 @@ HackVote.config(function ($stateProvider, $locationProvider) {
             }
         }
     })
+    .state('login', {
+        url: '/login',
+        views: {
+            '' : {
+                templateUrl: 'partials/partial-survey-login',
+                controller: LoginSurveyCtrl
+            }
+        }
+    })
     .state('admin', {
         url: '/admin',
         views: {
