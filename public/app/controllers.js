@@ -18,8 +18,10 @@ function SurveyCtrl($scope, $http, $state) {
     $scope.init = function () {
         $http.get('/details').success(function (data) {
             if (data && !data.error) {
-                $scope.name = data.name;
+                $scope.name = data;
             }
+        }).error(function (error) {
+            $scope.error.push(error);        
         });
     }
 

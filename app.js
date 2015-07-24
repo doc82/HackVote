@@ -122,9 +122,21 @@ function isAdminAuth(req, res, next) {
 
 function isSurveyAuth(req, res, next) {
     // Are we logged in already - go ahead and advance to the survey screen
-    if (req.session.user && req.session.auth && req.session.auth === 'survey' && ((req.session.currentSurvey && req.session.currentSurvey.projectID) || (req.session.survey && req.session.survey.projectID))) {
-        console.log("Succesfully going into survey mode!");
-        next();
+    if (req.session.user && req.session.auth && req.session.auth === 'survey') {
+        if (req.session.currentSurvey && req.session.currentSurvey.projectID)
+            next();
+        else if(req.query && req.query.projectName && req.query.location) {
+            req.session.currentSurvey = {
+                projectID: md5(req.query.projectName),
+                location: req.query.location.toLowerCase(),
+                projectName: req.query.projectName.replace(/%/g, ' ')// sanitize any %'s
+            };
+            next();
+        } else {
+            console.log("session fail" + req.session.user);
+            console.log("We had an issue with displaying a survey!");
+            return res.redirect('/droids');    
+        }
     } else {
         console.log("session fail" + req.session.user);
         console.log("We had an issue with displaying a survey!");
@@ -133,7 +145,7 @@ function isSurveyAuth(req, res, next) {
 };
 
 function loginCheck(req, res, next) {
-    function prepPacket(req) {
+    function newSurvey(req) {
         return {
             projectID: md5(req.query.projectName),
             location: req.query.location.toLowerCase(),
@@ -141,19 +153,14 @@ function loginCheck(req, res, next) {
         };
     }
     // Entry point
-    if (req.session.user && req.session.auth && req.session.auth === 'survey' && ((req.session.currentSurvey && req.session.currentSurvey.projectID) || (req.session.survey && req.session.survey.projectID))) {
-        if (req.session.currentSurvey && req.session.currentSurvey.projectID && req.query.projectID) {
-            req.session.currentSurvey = null;
-            req.session.survey = prepPacket(req);
-        } else if (req.session.survey && req.session.survey.projectID && req.query.projectID) {
-            req.session.currentSurvey = null;
-            req.session.survey = prepPacket(req);
+    if (req.session.user && req.session.auth && req.session.auth === 'survey' && (req.session.currentSurvey && req.session.currentSurvey.projectID)) {
+        if (req.query && req.query.projectName && req.session.currentSurvey.projectName != req.query.projectName) {
+            req.session.currentSurvey = newSurvey(req);
         }
 
         return next();
-    } else if (req.query.projectName ) {
-        req.session.currentSurvey = null;
-        req.session.survey = prepPacket(req);
+    } else if (req.query && req.query.projectName && req.query.location) {
+        req.session.currentSurvey = newSurvey(req);
         
         if (req.session.user && req.session.auth && req.session.auth === 'survey') {
             return res.redirect('/survey');
@@ -162,7 +169,6 @@ function loginCheck(req, res, next) {
         }
     } else {
         req.session.currentSurvey = null;
-        req.session.survey = null;
         console.log("error! -trying to log in but no query data provided! ");
         return res.redirect('/droids');
     }

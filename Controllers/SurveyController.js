@@ -101,22 +101,29 @@ exports.startSurvey = function (req, res) {
 };
 
 exports.details = function (req, res) {
-    findCreateUser(req.session.user, function (user) {
-        if (!user) {
-            console.error(err);
-            res.json({ err: "There was a problem finding your user account. Contact an admin." });
-        } else {
-            user.getProject(req.session.currentSurvey.projectID, function (err, result) {
-                if (err) {
-                    console.error(err);
-                    res.json({ err: "Experiencing database issues - contact an admin" });
-                } else if (result || result === 0) {
-                    var response = {};
-                    response.name = user.surveys[result].projectName;
+    if (req.session.currentSurvey) {
+        res.json(req.session.currentSurvey.projectName);
+    } else {
+        res.json({ error: "No survey available" });
+    }
+    //findCreateUser(req.session.user, function (user) {
+    //    if (!user) {
+    //        console.error(err);
+    //        res.json({ err: "There was a problem finding your user account. Contact an admin." });
+    //    } else {
+    //        user.getProject(req.session.currentSurvey.projectID, function (err, result) {
+    //            if (err) {
+    //                console.error(err);
+    //                res.json({ err: "Experiencing database issues - contact an admin" });
+    //            } else if (result || result === 0) {
+    //                var response = {};
+    //                response.name = user.surveys[result].projectName;
 
-                    res.json(response);
-                }
-            });
-        }
-    });
+    //                res.json(response);
+    //            } else {
+    //                res.json({ error: "No survey available!" });
+    //            }
+    //        });
+    //    }
+    //});
 };
