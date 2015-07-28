@@ -135,6 +135,7 @@ function isSurveyAuth(req, res, next) {
     if (req.session.user && req.session.auth && req.session.auth === 'survey') {
         if (req.session.currentSurvey && req.session.currentSurvey.projectID) {
             if (req.query && req.query.projectName) {
+                req.session.currentSurvey = null;
                 req.session.currentSurvey = newSurvey(req);
             }
             return next();
@@ -157,7 +158,7 @@ function isSurveyAuth(req, res, next) {
     }
 };
 
-// login middleware 
+// login middleware it
 function loginCheck(req, res, next) {
     // Entry point
     if (req.session.user && req.session.auth && req.session.auth === 'survey' && (req.session.currentSurvey && req.session.currentSurvey.projectID)) {
