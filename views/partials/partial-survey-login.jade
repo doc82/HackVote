@@ -5,7 +5,6 @@
         .panel-heading
           strong  Enter your Alias and where you voted from!
           br
-          weak Alias Example: 'v-brbjor'
         .panel-body
           form(ng-submit="submitForm()")
             fieldset
@@ -15,12 +14,12 @@
                     .input-group
                       span.input-group-addon
                         i.glyphicon.glyphicon-user
-                      input.form-control(ng-model='form.user' placeholder='Username', name='loginname', type='text', autofocus='')
+                      input.form-control(ng-model='form.user' placeholder='Enter your alias', name='loginname', type='text', autofocus='')
                   .form-group
                     .input-group
                       span.input-group-addon
                         i.glyphicon.glyphicon-lock
-                      select.form-control(ng-model='form.location')
+                      select.form-control(ng-model='form.location' placeholder='Pick your location')
                         option(value='redmondsf') Redmond
                         option(value='indiasf') India
                   .form-group
