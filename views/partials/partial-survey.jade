@@ -1,6 +1,6 @@
 ﻿form#survey(ng-submit="submitForm()")
   fieldset
-    // Form Name 
+    // Form Name
     h3.projectName {{name}}
     // Multiple Radios
     .radios(ng-repeat='question in questions')
@@ -8,7 +8,7 @@
         label.control-label(for='radios') {{question.description}}
         .controls(ng-repeat='xx in question.answers track by $index')
           label.radio
-            input#radios-0(type='radio', ng-model='form.vote', name='radios', value='{{$index}}')
+            input#radios-0(type='radio', ng-model='form.vote', name='radios', value='{{$index}}', style='height:20px;width:20px;margin-rigth:10px')
             |           {{xx}}
     // Button
     .control-group
