@@ -19,7 +19,8 @@
                     .input-group
                       span.input-group-addon
                         i.glyphicon.glyphicon-lock
-                      select.form-control(ng-model='form.location' placeholder='Pick your location')
+                      select.form-control(ng-model='form.location')
+                        option(value="Pick your location" disabled selected) Select your option
                         option(value='redmondsf') Redmond
                         option(value='indiasf') India
                   .form-group
