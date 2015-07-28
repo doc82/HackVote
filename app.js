@@ -120,18 +120,31 @@ function isAdminAuth(req, res, next) {
     }
 };
 
+// Helper function
+function newSurvey(req) {
+    return {
+        projectID: md5(req.query.projectName),
+        location: req.query.location.toLowerCase(),
+        projectName: req.query.projectName.replace(/%/g, ' ')// sanitize any %'s
+    };
+}
+
+// Survey auth middleware
 function isSurveyAuth(req, res, next) {
     // Are we logged in already - go ahead and advance to the survey screen
     if (req.session.user && req.session.auth && req.session.auth === 'survey') {
-        if (req.session.currentSurvey && req.session.currentSurvey.projectID)
-            next();
-        else if(req.query && req.query.projectName && req.query.location) {
+        if (req.session.currentSurvey && req.session.currentSurvey.projectID) {
+            if (req.query && req.query.projectName) {
+                req.session.currentSurvey = newSurvey(req);
+            }
+            return next();
+        } else if(req.query && req.query.projectName && req.query.location) {
             req.session.currentSurvey = {
                 projectID: md5(req.query.projectName),
                 location: req.query.location.toLowerCase(),
                 projectName: req.query.projectName.replace(/%/g, ' ')// sanitize any %'s
             };
-            next();
+            return next();
         } else {
             console.log("session fail" + req.session.user);
             console.log("We had an issue with displaying a survey!");
@@ -144,21 +157,15 @@ function isSurveyAuth(req, res, next) {
     }
 };
 
+// login middleware 
 function loginCheck(req, res, next) {
-    function newSurvey(req) {
-        return {
-            projectID: md5(req.query.projectName),
-            location: req.query.location.toLowerCase(),
-            projectName: req.query.projectName.replace(/%/g, ' ')// sanitize any %'s
-        };
-    }
     // Entry point
     if (req.session.user && req.session.auth && req.session.auth === 'survey' && (req.session.currentSurvey && req.session.currentSurvey.projectID)) {
-        if (req.query && req.query.projectName && req.session.currentSurvey.projectName != req.query.projectName) {
+        if (req.query && req.query.projectName) {
             req.session.currentSurvey = newSurvey(req);
         }
 
-        return next();
+        return res.redirect('/survey');
     } else if (req.query && req.query.projectName && req.query.location) {
         req.session.currentSurvey = newSurvey(req);
         
