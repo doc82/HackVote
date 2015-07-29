@@ -8,20 +8,20 @@ function SurveyCtrl($scope, $http, $state) {
     $scope.form = {vote: ''};
     $scope.error = [];
     $scope.name = '';
-    
+
     $scope.questions = [
         {
             description: "Wow! This project…", answers: ['Inspired me!', 'Taught me something new!', 'It was really creative!']
         }
     ];
-    
+
     $scope.init = function () {
         $http.get('/details').success(function (data) {
             if (data && !data.error) {
                 $scope.name = data;
             }
         }).error(function (error) {
-            $scope.error.push(error);        
+            $scope.error.push(error);
         });
     }
 
@@ -43,11 +43,12 @@ function SurveyCtrl($scope, $http, $state) {
 };
 
 function AdminCtrl($scope, $http, DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder) {
+    $('body').css('background-color','white');
     $scope.votes = [];
     $scope.dtInstance = {};
     $scope.dtColumns = {};
     $scope.dtOptions = {};
-    
+
     // Config DataTable
     $scope.dtOptions = DTOptionsBuilder.newOptions()
         .withBootstrap()
@@ -61,7 +62,7 @@ function AdminCtrl($scope, $http, DTOptionsBuilder, DTColumnDefBuilder, DTColumn
             //        type: 'text',
             //        bRegex: true,
             //        bSmart: true
-            //}, 
+            //},
             {
                     type: 'text',
                     bRegex: true,
@@ -109,7 +110,7 @@ function AdminCtrl($scope, $http, DTOptionsBuilder, DTColumnDefBuilder, DTColumn
             console.log(data);
         }
     });
-    
+
     $scope.export = function () {
         location.href = "export";
     }
@@ -144,13 +145,13 @@ function LoginCtrl($scope, $http, $state) {
                 $scope.error.push("Please enter a password");
             }
         }
-    }  
+    }
 };
 
 function LoginSurveyCtrl($scope, $http, $state) {
     $scope.form = {};
     $scope.error = [];
-    
+
     $scope.submitForm = function () {
         if ($scope.form && $scope.form.user && $scope.form.location) {
             $http.post('/login', $scope.form).success(function (data) {
@@ -171,7 +172,7 @@ function LoginSurveyCtrl($scope, $http, $state) {
                 console.log("no user!");
                 $scope.error.push("Please enter your MS-Corp Alias");
             }
-            
+
             if (!$scope.form.location) {
                 $scope.error.push("Please select a location!");
             }

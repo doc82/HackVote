@@ -5,6 +5,9 @@ body {
   color: #fff;
   font-family: Segoe UI SemiLight;
 }
+tfoot {
+  display: none;
+}
 .admin {
   background: #fff;
   color: #000;
@@ -16,7 +19,7 @@ body {
   color: #000;
 }
 .admin .odd .ng-binding {
-  background: rgba(0,0,0,0.6);
+  background: #f0f0f0;
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {

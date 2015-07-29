@@ -5,7 +5,6 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title #{title} - My Express Application
     link(rel='stylesheet', type='text/css', href='/stylesheets/bootstrap.min.css')
-    
     link(rel='stylesheet', type='text/css', href='/stylesheets/dataTables.responsive.css')
     link(rel='stylesheet', type='text/css', href='/stylesheets/datatables.bootstrap.css')
     link(rel='stylesheet', type='text/css', href='/stylesheets/style.css')
@@ -14,14 +13,14 @@ html
   body(ng-app='HackVote')
 
     .container
-      .header
-        img(src='/img/Hackathon_Logo.png')
+      .header(style="height:125px;background-color:#E50E20")
+        img(style="margin-top:25px", src='/img/Hackathon_Logo.png')
        block content
 
     script(src='/javascripts/jquery-1.10.2.js')
     script(src='/javascripts/jquery.dataTables.min.js')
     script(src='/javascripts/jquery.dataTables.columnFilter.js')
-    
+
     script(src='/javascripts/bootstrap.js')
     script(src='/javascripts/respond.js')
     script(src='/javascripts/angular.js')
@@ -30,8 +29,6 @@ html
     script(src='/javascripts/angular-datatables.columnfilter.min.js')
     script(src='/javascripts/angular-datatables.bootstrap.js')
     script(src='/javascripts/angular-datatables.js')
-   
-    
 
     script(src='/app/app.js')
     script(src='/app/controllers.js')
