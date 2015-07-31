@@ -7,22 +7,23 @@
           br
           weak Scan a QR code to make a vote!
         .panel-body
-          form(ng-submit="submitForm()")
-            fieldset
-              .row
-                .col-sm-12.col-md-10.col-md-offset-1
-                  .form-group
-                    .input-group
-                      span.input-group-addon
-                        i.glyphicon.glyphicon-user
-                      input.form-control(ng-model='form.user' placeholder='Username', name='loginname', type='text', autofocus='')
-                  .form-group
-                    .input-group
-                      span.input-group-addon
-                        i.glyphicon.glyphicon-lock
-                      input.form-control(ng-model='form.password' placeholder='Password', name='password', type='password', value='')
-                  .form-group
-                    input.btn.btn-lg.btn-primary.btn-block(type='submit', value='Sign in')
+          h1 Voting is now over, head over to http://hackathon to like, share, and provide feedback to your fellow hackers!
+          //-form(ng-submit="submitForm()")
+            //-fieldset
+              //-.row
+                //-.col-sm-12.col-md-10.col-md-offset-1
+                  //-.form-group
+                    //-.input-group
+                      //-span.input-group-addon
+                        //-i.glyphicon.glyphicon-user
+                      //-input.form-control(ng-model='form.user' placeholder='Username', name='loginname', type='text', autofocus='')
+                  //-.form-group
+                    //-.input-group
+                      //-span.input-group-addon
+                        //-i.glyphicon.glyphicon-lock
+                      //-input.form-control(ng-model='form.password' placeholder='Password', name='password', type='password', value='')
+                  //-.form-group
+                    //-input.btn.btn-lg.btn-primary.btn-block(type='submit', value='Sign in')
         .panel-footer
           ul(ng-repeat="x in error track by $index")
             {{x}}
