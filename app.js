@@ -14,7 +14,7 @@
     md5 = require('md5'),
     app = express();
 
-// Config DB && Session 
+// Config DB && Session
 var sessConfig = {
         saveUninitialized: false,
         resave: false,
@@ -80,7 +80,7 @@ if (app.get('env') === 'production') {
 //        }
 //        done(err, (err) ? {} : {email: parsed.mail});
 //    });
-    
+
 //}));
 
 // Configure Express + Middleware
@@ -93,7 +93,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json())
 app.use(express.urlencoded());
-app.use(expressValidator()); 
+app.use(expressValidator());
 app.use(express.methodOverride());
 app.use(json2xls.middleware);
 app.use(app.router);
@@ -111,7 +111,7 @@ app.get('/partials/:name', function (req , res) {
     return res.render('partials/' + req.params.name);
 });
 
-// Handle Admin 
+// Handle Admin
 function isAdminAuth(req, res, next) {
     if (req.session.auth && req.session.auth === 'admin') {
         next();
@@ -149,12 +149,12 @@ function isSurveyAuth(req, res, next) {
         } else {
             console.log("session fail" + req.session.user);
             console.log("We had an issue with displaying a survey!");
-            return res.redirect('/droids');    
+            return res.redirect('/droids');
         }
     } else {
         console.log("session fail" + req.session.user);
         console.log("We had an issue with displaying a survey!");
-        return res.redirect('/droids');     
+        return res.redirect('/droids');
     }
 };
 
@@ -169,7 +169,7 @@ function loginCheck(req, res, next) {
         return res.redirect('/survey');
     } else if (req.query && req.query.projectName && req.query.location) {
         req.session.currentSurvey = newSurvey(req);
-        
+
         if (req.session.user && req.session.auth && req.session.auth === 'survey') {
             return res.redirect('/survey');
         } else {
@@ -215,7 +215,7 @@ app.get('/export', isAdminAuth, routes.exportData);
 
 ////
 // Error Handlers
-// catch 404 and forward to error handler   
+// catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
