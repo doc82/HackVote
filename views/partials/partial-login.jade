@@ -1,10 +1,6 @@
 ﻿.container(style='margin-top:40px')
   .row(ui-view="login")
     .col-sm-6.col-md-4.col-md-offset-4
-      h1 Voting at the Science Fair has concluded
-      h3 You can now visit:
-      h3: a(href="http://aka.ms/hack") http://aka.ms/hack
-      h3 to View, Share, Like, and Comment on Hackathon Projects
       .panel-heading
         strong  Admin Only
         br
@@ -26,6 +22,6 @@
                     input.form-control(ng-model='form.password' placeholder='Password', name='password', type='password', value='')
                 .form-group
                   input.btn.btn-lg.btn-primary.btn-block(type='submit', value='Sign in')
-          //-.panel-footer
-            //-ul(ng-repeat="x in error track by $index")
-              //-{{x}}
+          .panel-footer
+            ul(ng-repeat="x in error track by $index")
+              {{x}}
