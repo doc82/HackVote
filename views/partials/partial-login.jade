@@ -5,27 +5,27 @@
       h3 You can now visit:
       h3: a(href="http://aka.ms/hack") http://aka.ms/hack
       h3 to View, Share, Like, and Comment on Hackathon Projects
-        //-.panel-heading
-          //-strong  Admin Only
-          //-br
-          //-weak Scan a QR code to make a vote!
-        //-.panel-body
-          form(ng-submit="submitForm()")
-            fieldset
-              .row
-                .col-sm-12.col-md-10.col-md-offset-1
-                  .form-group
-                    .input-group
-                      span.input-group-addon
-                        i.glyphicon.glyphicon-user
-                      input.form-control(ng-model='form.user' placeholder='Username', name='loginname', type='text', autofocus='')
-                  .form-group
-                    .input-group
-                      span.input-group-addon
-                        i.glyphicon.glyphicon-lock
-                      input.form-control(ng-model='form.password' placeholder='Password', name='password', type='password', value='')
-                  .form-group
-                    input.btn.btn-lg.btn-primary.btn-block(type='submit', value='Sign in')
+      .panel-heading
+        strong  Admin Only
+        br
+        weak Scan a QR code to make a vote!
+      .panel-body
+        form(ng-submit="submitForm()")
+          fieldset
+            .row
+              .col-sm-12.col-md-10.col-md-offset-1
+                .form-group
+                  .input-group
+                    span.input-group-addon
+                      i.glyphicon.glyphicon-user
+                    input.form-control(ng-model='form.user' placeholder='Username', name='loginname', type='text', autofocus='')
+                .form-group
+                  .input-group
+                    span.input-group-addon
+                      i.glyphicon.glyphicon-lock
+                    input.form-control(ng-model='form.password' placeholder='Password', name='password', type='password', value='')
+                .form-group
+                  input.btn.btn-lg.btn-primary.btn-block(type='submit', value='Sign in')
           //-.panel-footer
             //-ul(ng-repeat="x in error track by $index")
               //-{{x}}
